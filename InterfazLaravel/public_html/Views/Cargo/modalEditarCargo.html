@@ -1,0 +1,109 @@
+<div id="modalEditarCargo" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5> Editar Cargo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times; </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="frmEdicion">
+                    <input type="hidden" id="txtid">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleInputNombre">Nombre</label>
+                            <input type="text" name="Nombre" class="form-control" id="txtNombre"
+                                placeholder="Enter Nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputDescripcion">Descripcion</label>
+                            <input type="text" name="Descripcion" class="form-control" id="txtDescripcion"
+                                placeholder="Descripcion">
+                        </div>
+                        
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-btn btn-success">Guardar</button>
+                        <button type="button" onclick="FnCancelar()" class="btn btn-danger">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function FnCancelar() {
+        $('#modalEditarCargo').modal("hide");
+    }
+    $(function () {
+
+        $.validator.setDefaults({
+            submitHandler: function () {
+                var data = { id: $("#txtid").val(), nombre: $("#txtNombre").val(), descripcion: $("#txtDescripcion").val()};
+                try {
+                    $.ajax({
+                        method: "PUT",
+                        url: "http://apicargo.com/api/cargo",
+                        data: data,
+                        success: function (msg) {
+                            $('#modalEditarCargo').modal("hide");
+                            FnActualizartabla();
+                            console.log("editado correctamente");
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            console.log(xhr);
+                            console.log(xhr.status);
+                            console.log(thrownError);
+                        }
+                    });
+                }
+                catch (e) {
+                    // sentencias para manejar cualquier excepción
+                    console.log(e); // pasa el objeto de la excepción al manejador de errores
+                }
+
+                return false;
+            }
+        });
+        $('#frmEdicion').validate({
+            rules: {
+                Nombre: {
+                    required: true
+                },
+                Descripcion: {
+                    required: true
+                },
+                // terms: {
+                //     required: true
+                // },
+            },
+            messages: {
+                Nombre: {
+                    required: "Por favor rellene los datos de Nombre",
+                    Nombre: "Por favor rellene los datos de Nombre"
+                },
+                Descripcion: {
+                    required: "Por favor rellene los datos de Nombre",
+                    minlength: "Por favor rellene los datos de Nombre"
+                },
+                // terms: "Please accept our terms"
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>
+<!-- jquery-validation -->
+<script src="/public_html/assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="/public_html/assets/plugins/jquery-validation/additional-methods.min.js"></script>

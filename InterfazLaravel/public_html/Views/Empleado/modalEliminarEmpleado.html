@@ -1,0 +1,49 @@
+<div id="modalDeleteEmpleado" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5> Eliminar Empleado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times; </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6>¿Desea eliminar el Empleado?</h6>
+                <div class="row"></div>
+                <button type="button" Class="btn btn-success" onclick="FnEliminarEmpleado()">Sí</button>
+                <button type="button" class="btn btn-danger" onclick="FnCancelar()">No</button>
+            </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function FnCancelar() {
+        $('#modalDeleteEmpleado').modal("hide");
+    }
+
+    function FnEliminarEmpleado(){
+        try {
+                        $.ajax({
+                            method: "DELETE",
+                            url: "http://apiempleado.com/api/empleado/"+idEmpleado,                           
+                            success: function (msg) {                                
+                                $('#modalDeleteEmpleado').modal("hide");
+                                FnActualizartabla();
+                                console.log("Empleado Eliminado");
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                console.log(xhr);
+                                console.log(xhr.status);
+                                console.log(thrownError);
+                            }
+                        });
+                    }
+                    catch (e) {
+                        // sentencias para manejar cualquier excepción
+                        console.log(e); // pasa el objeto de la excepción al manejador de errores
+                    };
+    }
+
+</script>

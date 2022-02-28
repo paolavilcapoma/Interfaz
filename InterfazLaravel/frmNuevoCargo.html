@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>      </title>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+<script type="text/javascript" >
+    function guardar(){
+        $.ajax(
+    {
+        method:"POST",
+        url:"http://apis.com/api/cargo",
+        data:{Nombre:$("#txtNombre").val(),Descripcion:$("#txtDescripcion").val(),EsActivo:$("#txtEsActivo").val()}
+    }
+)
+.done(function(response){
+    $("#message").text("El cargo se registro correctamente");
+   
+    $("#txtNombre").val(" ");
+    $("#txtDescripcion").val(" ");
+    $("#txtEsActivo").val(" ");
+   
+});
+    }
+
+</script>
+<label> Nombre</label>
+<input type="text" name="txtNombre" id="txtNombre">
+<br>
+<label> Descripcion</label>
+<input type="text" name="txtDescripcion" id="txtDescripcion">
+<br>
+<label> EsActivo</label>
+<input type="text" name="txtEsActivo" id="txtEsActivo" placeholder="Solo 1 o 0">
+<br>
+<label id="message"></label>
+<button onclick="guardar()"> Guardar</button>
+    </body>
+</html>

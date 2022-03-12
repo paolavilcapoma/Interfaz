@@ -5,7 +5,7 @@ $(document).ready(function () {
         {
             "ajax": {
                 type: 'get',
-                url: "http://apicargo.com/api/cargo",
+                url: "http://apiempleado.com/api/cargo",
                 dataSrc: '',
                 cache: true
             },

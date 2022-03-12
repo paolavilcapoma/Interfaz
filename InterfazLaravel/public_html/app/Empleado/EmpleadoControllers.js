@@ -14,10 +14,16 @@ $(document).ready(function () {
                     "targets": 0,
                     "render": function (data, type, row) {
 
-                        return row.created_at;
+                        return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
                     },
                 },
+                {
+                    "targets": 1,
+                    "render": function (data, type, row) {
 
+                        return row.cargo_id;
+                    },
+                },
                 {
                     "targets": 1,
                     "render": function (data, type, row) {
@@ -62,6 +68,7 @@ $(document).ready(function () {
                         return "<a href='#' onclick=\"loadEditEmpleado('" + row.id + "')\">Editar</a> | <a id='btnEliminar' href='#' onclick=\"loadDeleteEmpleado('" + row.id + "')\">Eliminar</a> ";
                     },
                 },
+
             ]
         }
     );

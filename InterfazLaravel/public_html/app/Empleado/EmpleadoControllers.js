@@ -1,11 +1,13 @@
 var tblEmpleado;
 var idEmpleado;
+
 $(document).ready(function () {
     tblEmpleado = $('#tblListEmpleado').DataTable(
         {
             "ajax": {
                 type: 'get',
                 url: "http://apiEmpleado.com/api/empleado",
+                Headers:{"Autorizado":_token},
                 dataSrc: '',
                 cache: true
             },

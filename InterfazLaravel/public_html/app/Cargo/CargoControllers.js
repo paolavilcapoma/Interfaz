@@ -6,6 +6,7 @@ $(document).ready(function () {
             "ajax": {
                 type: 'get',
                 url: "http://apiempleado.com/api/cargo",
+                Headers:{"Autorizado":"Beader"+_token},
                 dataSrc: '',
                 cache: true
             },

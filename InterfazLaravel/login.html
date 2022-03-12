@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Log in</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/public_html/assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="/public_html/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/public_html/assets/css/adminlte.min.css">
+</head>
+
+<body class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="../../index2.html"><b>Admin</b>LTE</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg">Iniciar Sesion</p>
+
+        <form id="frmLogin" action="/public_html/assets/index3.html" method="post">
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" name="txtemail" id="txtemail" placeholder="Email">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" name="txtpassword" id="txtpassword" placeholder="Password">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <div class="icheck-primary">
+                <input type="checkbox" id="remember">
+                <label for="remember">
+                  Remember Me
+                </label>
+              </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-4">
+              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+
+        <div class="social-auth-links text-center mb-3">
+          <p>- OR -</p>
+          <a href="#" class="btn btn-block btn-primary">
+            <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+          </a>
+          <a href="#" class="btn btn-block btn-danger">
+            <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+          </a>
+        </div>
+        <!-- /.social-auth-links -->
+
+        <p class="mb-1">
+          <a href="forgot-password.html">I forgot my password</a>
+        </p>
+        <p class="mb-0">
+          <a href="register.html" class="text-center">Register a new membership</a>
+        </p>
+      </div>
+      <!-- /.login-card-body -->
+    </div>
+  </div>
+  <!-- /.login-box -->
+
+  <!-- jQuery -->
+  <script src="/public_html/assets/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="/public_html/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/public_html/assets/js/adminlte.min.js"></script>
+
+  <script>
+
+    $(function () {
+
+      $.validator.setDefaults({
+        submitHandler: function () {
+          var data = {email: $("#txtemail").val(), password: $("#txtpassword").val() };
+          console.log(data);
+          console.log($("#txtid").val(),);
+          try {
+            $.ajax({
+              method: "POS",
+              url: "http://apiempleado.com/api/seguridad",
+              data: data,
+              // success: function (msg) {
+              //   $('#modalEditarEmpleado').modal("hide");
+              //   FnActualizartabla();
+              //   console.log("editado correctamente");
+              // },
+              // error: function (xhr, ajaxOptions, thrownError) {
+              //   console.log(xhr);
+              //   console.log(xhr.status);
+              //   console.log(thrownError);
+              // }
+            });
+          }
+          catch (e) {
+            // sentencias para manejar cualquier excepción
+            console.log(e); // pasa el objeto de la excepción al manejador de errores
+          }
+
+          return false;
+        }
+      });
+      $('#frmLogin').validate({
+        rules: {
+          txtemail: {
+            required: true
+          },
+          txtpassword: {
+            required: true
+          },
+          // terms: {
+          //     required: true
+          // },
+        },
+        messages: {
+          txtemail: {
+            required: "Por favor rellene los datos de email",
+            Nombre: "Por favor rellene los datos de email"
+          },
+          txtpassword: {
+            required: "Por favor rellene los datos de password",
+            Nombre: "Por favor rellene los datos de password"
+          },
+          // terms: "Please accept our terms"
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+        }
+      });
+    });
+  </script>
+<script src="/public_html/assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="/public_html/assets/plugins/jquery-validation/additional-methods.min.js"></script>
+</body>
+
+</html>

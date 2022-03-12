@@ -63,6 +63,7 @@
                     $.ajax({
                         method: "PUT",
                         url: "http://apiempleado.com/api/empleado",
+                        headers:{"Autorizado":"Bearer"+_token},
                         data: data,
                         success: function (msg) {
                             $('#modalEditarEmpleado').modal("hide");
